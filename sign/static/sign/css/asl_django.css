@@ -9,7 +9,6 @@ h1 {
     height: 400px;
     width: 400px;
     border: solid 5px;
-    /*background: url("{% static "sign/img/a.gif" %}");*/
     background-size: cover;
 }
 
