@@ -5,6 +5,7 @@ h1, .sign-window, .sign-buttons {
 h1 {
     text-align: center;
 }
+
 .sign-window {
     height: 400px;
     width: 400px;
@@ -12,6 +13,17 @@ h1 {
     background-size: cover;
 }
 
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .sign-window {
+        height: 90em;
+        width: 100%
+    }
+}
+
 .sign-buttons {
     width: fit-content;
 }
+
