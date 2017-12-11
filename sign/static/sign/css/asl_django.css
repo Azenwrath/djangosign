@@ -1,0 +1,18 @@
+h1, .sign-window, .sign-buttons {
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+.sign-window {
+    height: 400px;
+    width: 400px;
+    border: solid 5px;
+    /*background: url("{% static "sign/img/a.gif" %}");*/
+    background-size: cover;
+}
+
+.sign-buttons {
+    width: fit-content;
+}
