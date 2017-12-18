@@ -1,59 +1,74 @@
-console.log('Successfully loaded Fingerspelling module');
 "use strict";
 
-
-Array.prototype.sample = function () {
-    return this[Math.floor(Math.random()*this.length)];
+// Primary Word List interaction. This object takes an array of practice words as its argument.
+let WordList = function (wordlist) {
+    this.wordlist = wordlist;
+    this.newWord = function () {
+        this.currentWord = this.wordlist[Math.floor(Math.random()*this.wordlist.length)];
+    };
+    this.currentWord = "hello"; // First word is always 'Hello'
 };
 
-let currentWord = wordlist.sample(); //TODO: Make this an object
-let currentSpeed = 1000;
-
-let changeLetter = function (letter) {
-    let elem = document.getElementById("sign-window");
-    // elem.style.background = url('/static/sign/img/b.gif');
-    elem.style.backgroundImage = 'url(/static/sign/img/' + letter.toLowerCase() + '.gif)';
-    console.log('Changing sign');
+let Letter = function (element) {
+    this.elem = element;
+    this.changeLetter = function (letter) {
+        this.elem.style.backgroundImage = 'url(/static/sign/img/' + letter.toLowerCase() + '.gif)';
+    };
+    this.blankLetter = function () {
+        this.elem.style.backgroundImage = null;
+    };
 };
 
-let blankLetter = function () {
-    document.getElementById("sign-window").style.backgroundImage = null;
+let SignGame = function (startSpeed, letter, wordlist) {
+    this.currentSpeed = startSpeed;
+    this.letter = letter;
+    this.wordlist = wordlist;
+    this.play = function () {
+        let word = this.wordlist.currentWord;
+        let i = 0;
+        let countdown = setInterval(function () {
+            console.log("Showing letter: " + word[i]);
+            if (word[i]) {letter.changeLetter(word[i])};
+            i++;
+            if (i > word.length) {
+                clearInterval(countdown);
+                letter.blankLetter();
+            }
+            }, this.currentSpeed);
+    };
+    this.speedUp = function () {
+        if (this.currentSpeed > 100) {this.currentSpeed -= 100;}
+        else {
+        console.log('Reached maximum speed.'); // TODO: Add scaling speed logic
+    }
+    };
+    this.slowDown = function () {
+        this.currentSpeed += 100;
+    }
+
 };
 
+let sign_window = new Letter(document.getElementById('sign-window'));
+let currentList = new WordList(wordlist);
 
+const game = new SignGame(1000, sign_window, currentList);
 
-let play = function (word, interval) {
-    let i = 0;
-    let countdown = setInterval(function () {
-        console.log("timed out on " + word[i]);
-        if (word[i]) {changeLetter(word[i])};
-        i++;
-        if (i > word.length) {
-            clearInterval(countdown);
-            blankLetter();
-        }
-        }, interval);
-};
 
 
 document.getElementById('replay').addEventListener("click", function () {
-    play(currentWord, currentSpeed);
+    game.play();
 });
 
 document.getElementById('new-word').addEventListener("click", function () {
-    currentWord = wordlist.sample();
+    game.wordlist.newWord();
 });
 
 document.getElementById('faster').addEventListener("click", function () {
-    if (currentSpeed > 100) {
-    currentSpeed -= 100;}
-    else {
-        console.log('Reached maximum speed.'); // TODO: Add scaling speed logic
-    }
+    game.speedUp();
 });
 
 document.getElementById('slower').addEventListener("click", function () {
-    currentSpeed += 100;
+    game.slowDown();
 });
 
 
@@ -77,7 +92,7 @@ function preloadImages(array) {
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 let imageList = [];
-for (i in alphabet) {
+for (const i in alphabet) {
     const letterUrl = '/static/sign/img/' + alphabet[i] + ".gif";
     imageList.push(letterUrl);
 };
