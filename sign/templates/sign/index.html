@@ -17,10 +17,14 @@
 <h1>Fingerspelling Practice</h1>
 <hr>
 <div class="sign-window" id="sign-window"></div>
-<div class="sign-buttons"><input type="button" id="replay" name="replay" value="Play Again">
-    <input type="button" id="new-word" name="new-word" value="New Word">
-    <input type="button" id="slower" name="slower" value="Slow Down">
-    <input type="button" id="faster" name="faster" value="Speed Up">
+<h2 id="post-answer" class="answer"></h2>
+<div class="sign-buttons">
+    <input class='first-tier' type="text" id="input-window" name="input-window" placeholder="Enter word here">
+    <input class='first-tier' type="button" id="check-word" name="check-word" value="Check word">
+    <input class='second-tier' type="button" id="replay" name="replay" value="Play Again">
+    <input class='second-tier' type="button" id="new-word" name="new-word" value="New Word">
+    <input class='third-tier' type="button" id="slower" name="slower" value="Slow Down">
+    <input class='third-tier' type="button" id="faster" name="faster" value="Speed Up">
 </div>
 </body>
 <script src="{% static "sign/js/wordlist.js" %}"></script>

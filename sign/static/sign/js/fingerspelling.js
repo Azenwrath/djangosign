@@ -19,10 +19,12 @@ let Letter = function (element) {
     };
 };
 
-let SignGame = function (startSpeed, letter, wordlist) {
+let SignGame = function (startSpeed, letter, wordlist, inputWindow, outputWindow) {
     this.currentSpeed = startSpeed;
     this.letter = letter;
     this.wordlist = wordlist;
+    this.inputWindow = inputWindow;
+    this.outputWindow = outputWindow;
     this.play = function () {
         let word = this.wordlist.currentWord;
         let i = 0;
@@ -44,23 +46,37 @@ let SignGame = function (startSpeed, letter, wordlist) {
     };
     this.slowDown = function () {
         this.currentSpeed += 100;
+    };
+    this.checkWord = function () {
+        if (this.inputWindow.value.toLowerCase() === this.wordlist.currentWord.toLowerCase()) {
+            this.outputWindow.style.color = "green";
+            this.outputWindow.innerHTML = "Correct";
+        } else {
+            this.outputWindow.style.color = "red";
+            this.outputWindow.innerHTML = "Incorrect";
+        }
+    }
+    this.changeWord = function () {
+        this.wordlist.newWord();
+        this.outputWindow.innerHTML = "";
     }
 
 };
 
 let sign_window = new Letter(document.getElementById('sign-window'));
 let currentList = new WordList(wordlist);
+const output = document.getElementById('post-answer');
+const input = document.getElementById('input-window');
 
-const game = new SignGame(1000, sign_window, currentList);
-
-
+const game = new SignGame(1000, sign_window, currentList, input, output);
 
 document.getElementById('replay').addEventListener("click", function () {
     game.play();
 });
 
 document.getElementById('new-word').addEventListener("click", function () {
-    game.wordlist.newWord();
+    game.changeWord();
+    game.play();
 });
 
 document.getElementById('faster').addEventListener("click", function () {
@@ -71,6 +87,9 @@ document.getElementById('slower').addEventListener("click", function () {
     game.slowDown();
 });
 
+document.getElementById('check-word').addEventListener("click", function () {
+    game.checkWord();
+});
 
 function preloadImages(array) {
     if (!preloadImages.list) {
