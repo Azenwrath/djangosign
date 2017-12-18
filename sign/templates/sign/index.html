@@ -11,20 +11,22 @@
     <link rel="manifest" href="{% static '/manifest.json'  %}" >
     <link rel="mask-icon" href="{% static '/safari-pinned-tab.svg'  %}" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 </head>
 <body>
 <h1>Fingerspelling Practice</h1>
 <hr>
-<div class="sign-window" id="sign-window"></div>
+<div class="sign-window" id="sign-window"><img id="sign-img"></div>
 <h2 id="post-answer" class="answer"></h2>
 <div class="sign-buttons">
     <input class='first-tier' type="text" id="input-window" name="input-window" placeholder="Enter word here">
-    <input class='first-tier' type="button" id="check-word" name="check-word" value="Check word">
-    <input class='second-tier' type="button" id="replay" name="replay" value="Play Again">
-    <input class='second-tier' type="button" id="new-word" name="new-word" value="New Word">
-    <input class='third-tier' type="button" id="slower" name="slower" value="Slow Down">
-    <input class='third-tier' type="button" id="faster" name="faster" value="Speed Up">
+    <input class='second-tier' type="button" id="check-word" name="check-word" value="Check word">
+    <input class='third-tier' type="button" id="replay" name="replay" value="Play Again">
+    <input class='third-tier' type="button" id="new-word" name="new-word" value="New Word">
+    <input class='fourth-tier' type="button" id="slower" name="slower" value="Slow Down">
+    <input class='fourth-tier' type="button" id="faster" name="faster" value="Speed Up">
 </div>
 </body>
 <script src="{% static "sign/js/wordlist.js" %}"></script>

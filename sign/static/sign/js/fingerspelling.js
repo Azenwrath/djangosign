@@ -12,10 +12,11 @@ let WordList = function (wordlist) {
 let Letter = function (element) {
     this.elem = element;
     this.changeLetter = function (letter) {
-        this.elem.style.backgroundImage = 'url(/static/sign/img/' + letter.toLowerCase() + '.gif)';
+        this.elem.style.display = 'inline';
+        this.elem.src = '/static/sign/img/' + letter.toLowerCase() + '.gif';
     };
     this.blankLetter = function () {
-        this.elem.style.backgroundImage = null;
+        this.elem.style.display = 'None';
     };
 };
 
@@ -63,7 +64,7 @@ let SignGame = function (startSpeed, letter, wordlist, inputWindow, outputWindow
 
 };
 
-let sign_window = new Letter(document.getElementById('sign-window'));
+let sign_window = new Letter(document.getElementById('sign-img'));
 let currentList = new WordList(wordlist);
 const output = document.getElementById('post-answer');
 const input = document.getElementById('input-window');
